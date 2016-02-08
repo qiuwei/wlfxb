@@ -30,6 +30,7 @@ import eu.clarin.weblicht.wlfxb.tc.api.TextCorpusLayer;
 import eu.clarin.weblicht.wlfxb.tc.xb.TextCorpusLayerStoredAbstract;
 import eu.clarin.weblicht.wlfxb.tc.xb.TextCorpusLayerTag;
 import eu.clarin.weblicht.wlfxb.tc.xb.TextCorpusStored;
+import eu.clarin.weblicht.wlfxb.utils.JAXBContextWrapper;
 import eu.clarin.weblicht.wlfxb.xb.WLData;
 import javanet.staxutils.IndentingXMLEventWriter;
 
@@ -334,7 +335,7 @@ public class ExternalDataWithTextCorpusStreamed {
         Unmarshaller unmarshaller;
         ExternalDataLayerStored layer;
         try {
-            context = JAXBContext.newInstance(layerTag.getLayerClass());
+            context = JAXBContextWrapper.newInstance(layerTag.getLayerClass());
             unmarshaller = context.createUnmarshaller();
             layer = (ExternalDataLayerStored) unmarshaller.unmarshal(xmlEventReader);
             // marshall it back to xml
@@ -431,7 +432,7 @@ public class ExternalDataWithTextCorpusStreamed {
         Unmarshaller unmarshaller;
         TextCorpusLayerStoredAbstract layer = null;
         try {
-            context = JAXBContext.newInstance(layerTag.getLayerClass());
+            context = JAXBContextWrapper.newInstance(layerTag.getLayerClass());
             unmarshaller = context.createUnmarshaller();
             layer = (TextCorpusLayerStoredAbstract) unmarshaller.unmarshal(xmlEventReader);
             // marshall it back to xml
@@ -449,7 +450,7 @@ public class ExternalDataWithTextCorpusStreamed {
         JAXBContext context;
         try {
             xmlReaderWriter.startExternalFragment(LAYER_INDENT_RELATIVE);
-            context = JAXBContext.newInstance(layer.getClass());
+            context = JAXBContextWrapper.newInstance(layer.getClass());
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);

@@ -26,6 +26,7 @@ import eu.clarin.weblicht.wlfxb.tc.api.TextCorpusLayer;
 import eu.clarin.weblicht.wlfxb.tc.xb.TextCorpusLayerStoredAbstract;
 import eu.clarin.weblicht.wlfxb.tc.xb.TextCorpusLayerTag;
 import eu.clarin.weblicht.wlfxb.tc.xb.TextCorpusStored;
+import eu.clarin.weblicht.wlfxb.utils.JAXBContextWrapper;
 import javanet.staxutils.IndentingXMLEventWriter;
 
 import java.io.Closeable;
@@ -225,7 +226,7 @@ public class TextCorpusStreamedWithReplaceableLayers extends TextCorpusStored im
         JAXBContext context;
         Unmarshaller unmarshaller;
         try {
-            context = JAXBContext.newInstance(layerTag.getLayerClass());
+            context = JAXBContextWrapper.newInstance(layerTag.getLayerClass());
             unmarshaller = context.createUnmarshaller();
             TextCorpusLayerStoredAbstract layer = (TextCorpusLayerStoredAbstract) unmarshaller.unmarshal(xmlEventReader);
             super.layersInOrder[layerTag.ordinal()] = layer;
@@ -247,7 +248,7 @@ public class TextCorpusStreamedWithReplaceableLayers extends TextCorpusStored im
         JAXBContext context;
         try {
             xmlReaderWriter.startExternalFragment(LAYER_INDENT_RELATIVE);
-            context = JAXBContext.newInstance(layer.getClass());
+            context = JAXBContextWrapper.newInstance(layer.getClass());
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);

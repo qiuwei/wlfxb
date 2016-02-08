@@ -26,6 +26,7 @@ import eu.clarin.weblicht.wlfxb.lx.xb.LexiconLayerTag;
 import eu.clarin.weblicht.wlfxb.lx.xb.LexiconStored;
 import eu.clarin.weblicht.wlfxb.md.xb.MetaData;
 import eu.clarin.weblicht.wlfxb.md.xb.MetaDataItem;
+import eu.clarin.weblicht.wlfxb.utils.JAXBContextWrapper;
 import javanet.staxutils.IndentingXMLEventWriter;
 
 import java.io.InputStream;
@@ -302,7 +303,7 @@ public class LexiconStreamed extends LexiconStored {
         JAXBContext context;
         Unmarshaller unmarshaller;
         try {
-            context = JAXBContext.newInstance(layerTag.getLayerClass());
+            context = JAXBContextWrapper.newInstance(layerTag.getLayerClass());
             unmarshaller = context.createUnmarshaller();
             LexiconLayerStoredAbstract layer = (LexiconLayerStoredAbstract) unmarshaller.unmarshal(xmlEventReader);
             super.layersInOrder[layerTag.ordinal()] = layer;
@@ -320,7 +321,7 @@ public class LexiconStreamed extends LexiconStored {
         JAXBContext context;
         try {
             xmlReaderWriter.startExternalFragment(LAYER_INDENT_RELATIVE);
-            context = JAXBContext.newInstance(layer.getClass());
+            context = JAXBContextWrapper.newInstance(layer.getClass());
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -339,7 +340,7 @@ public class LexiconStreamed extends LexiconStored {
         }
         JAXBContext context;
         try {
-            context = JAXBContext.newInstance(MetaDataItem.class);
+            context = JAXBContextWrapper.newInstance(MetaDataItem.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);

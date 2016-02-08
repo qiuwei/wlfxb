@@ -20,6 +20,7 @@
  */
 package eu.clarin.weblicht.wlfxb.io;
 
+import eu.clarin.weblicht.wlfxb.utils.JAXBContextWrapper;
 import eu.clarin.weblicht.wlfxb.xb.WLDProfile;
 import java.io.*;
 import javax.xml.bind.JAXBContext;
@@ -31,7 +32,7 @@ public class WLDProfiler {
     public static WLDProfile read(InputStream inputStream) throws WLFormatException {
         WLDProfile profile = null;
         try {
-            JAXBContext context = JAXBContext.newInstance(WLDProfile.class);
+            JAXBContext context = JAXBContextWrapper.newInstance(WLDProfile.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             profile = (WLDProfile) unmarshaller.unmarshal(inputStream);
         } catch (JAXBException e) {
@@ -43,7 +44,7 @@ public class WLDProfiler {
     public static WLDProfile read(Reader reader) throws WLFormatException {
         WLDProfile profile = null;
         try {
-            JAXBContext context = JAXBContext.newInstance(WLDProfile.class);
+            JAXBContext context = JAXBContextWrapper.newInstance(WLDProfile.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             profile = (WLDProfile) unmarshaller.unmarshal(reader);
         } catch (JAXBException e) {

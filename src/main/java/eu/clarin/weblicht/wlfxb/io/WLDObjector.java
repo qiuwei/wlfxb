@@ -24,6 +24,7 @@ import eu.clarin.weblicht.wlfxb.md.xb.MetaData;
 import eu.clarin.weblicht.wlfxb.tc.api.TextCorpus;
 import eu.clarin.weblicht.wlfxb.tc.xb.TextCorpusStored;
 import eu.clarin.weblicht.wlfxb.utils.CommonConstants;
+import eu.clarin.weblicht.wlfxb.utils.JAXBContextWrapper;
 import eu.clarin.weblicht.wlfxb.xb.WLData;
 import javanet.staxutils.IndentingXMLEventWriter;
 
@@ -53,7 +54,7 @@ public class WLDObjector {
     public static WLData read(InputStream inputStream) throws WLFormatException {
         WLData data = null;
         try {
-            JAXBContext context = JAXBContext.newInstance(WLData.class);
+            JAXBContext context = JAXBContextWrapper.newInstance(WLData.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             data = ((WLData) unmarshaller.unmarshal(inputStream));
         } catch (JAXBException e) {
@@ -65,7 +66,7 @@ public class WLDObjector {
     public static WLData read(Reader reader) throws WLFormatException {
         WLData data = null;
         try {
-            JAXBContext context = JAXBContext.newInstance(WLData.class);
+            JAXBContext context = JAXBContextWrapper.newInstance(WLData.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             data = ((WLData) unmarshaller.unmarshal(reader));
         } catch (JAXBException e) {
@@ -167,7 +168,7 @@ public class WLDObjector {
             e = eventFactory.createIgnorableSpace(XmlReaderWriter.NEW_LINE);
             xmlEventWriter.add(e);
 
-            JAXBContext mdContext = JAXBContext.newInstance(MetaData.class);
+            JAXBContext mdContext = JAXBContextWrapper.newInstance(MetaData.class);
             Marshaller mdMarshaller = mdContext.createMarshaller();
             //does not work with XMLEventWriter:
             //mdMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -178,7 +179,7 @@ public class WLDObjector {
             e = eventFactory.createIgnorableSpace(XmlReaderWriter.NEW_LINE);
             xmlEventWriter.add(e);
 
-            JAXBContext tcContext = JAXBContext.newInstance(TextCorpusStored.class);
+            JAXBContext tcContext = JAXBContextWrapper.newInstance(TextCorpusStored.class);
             Marshaller tcMarshaller = tcContext.createMarshaller();
             //does not work with XMLEventWriter:
             //tcMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
